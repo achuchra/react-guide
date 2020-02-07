@@ -1,6 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Person from './Person/Person';
+import Validation from './Validation/Validation'
+import Char from './Char/Char'
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  background-color: ${props => props.alt ? '#9c4a38' : '#568046'};
+  color: #fff;
+  font: inherit;
+  border: 1px solid #eee;
+  padding: 8px 20px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 1px 1px 3px #eee;
+  border-radius: 25px;
+  transition: background .3s ease;
+  &:hover {
+    background-color: ${props => props.alt ? '#d97059' : '#8fc979'};  
+  }
+`
 
 class App extends Component {
    
@@ -11,7 +30,8 @@ class App extends Component {
         {id:'asdf3', name: 'Gregory', age: 33}
       ],
       otherState: 'Some other value',
-      showPersons: false
+      showPersons: false,
+      inputNumber: ''
   }
 
   nameChangedHandler = (event, personId) => {
@@ -46,18 +66,33 @@ class App extends Component {
     persons.splice(personIndex, 1);
     this.setState({persons: persons});
   }
+
+  numberChangedHandler = event => {
+    this.setState({inputNumber: event.target.value})
+  }
+
+  deleteCharHandler = index => {
+    let charles = this.state.inputNumber.split('');
+    charles.splice(index, 1);
+    let updatedCharles = charles.join('');
+    this.setState({inputNumber: updatedCharles})
+  }
   
   render () {
 
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid #eee',
-      padding: '8px 20px',
-      cursor: 'pointer',
+    const style2 = {
+      borderRadius: '25px',
+      margin: '15px 0',
       outline: 'none',
-      boxShadow: '1px 1px 3px #eee',
-      borderRadius: '25px'
+      padding: '3px 15px'
+    }
+
+    const classes = [];
+    if(this.state.persons.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.persons.length <= 1){
+      classes.push('bold');
     }
 
     let persons = null;
@@ -73,18 +108,43 @@ class App extends Component {
               changed={(event) => this.nameChangedHandler(event, person.id)}
             />
         })
+
+        // style.backgroundColor = '#9c4a38';
+        // style[':hover'] = {
+        //   backgroundColor: '#d97059'
+        // }
+    }
+
+    let chars = null;
+
+    if(this.state.inputNumber){
+      console.log(this.state.inputNumber);
+      chars = this.state.inputNumber.split('').map((char, index) => {
+        return <Char 
+          key={index} 
+          letter={char}
+          clicked={()=>this.deleteCharHandler(index)}>
+          </Char>
+      })
     }
 
     return (
-      <div className="App">
-        <h1>Hi, I'm a simple React Application</h1>
-        <button 
-          style={style}
-          onClick={this.togglePersonsHandler}>
-            Toggle names list
-        </button>
-        {persons}
-      </div>
+        <div className="App">
+          <h1>Hi, I'm a simple React Application</h1>
+          <p className={classes.join(' ')}>List of users down below</p>
+          <StyledButton
+            alt={this.state.showPersons ? 1 : 0}
+            onClick={this.togglePersonsHandler}>
+              Toggle names list
+          </StyledButton>
+          {persons}
+          <div>
+            <input style={style2} type="text" value={this.state.inputNumber} onChange={this.numberChangedHandler} ></input>
+            <p>{this.state.inputNumber}</p>
+          </div>
+          <Validation length={this.state.inputNumber.length} />
+          {chars}
+        </div>
     );
   }
 }
