@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import Person from './Person/Person';
 import Validation from './Validation/Validation'
 import Char from './Char/Char'
-import styled from 'styled-components';
 
-const StyledButton = styled.button`
-  background-color: ${props => props.alt ? '#9c4a38' : '#568046'};
-  color: #fff;
-  font: inherit;
-  border: 1px solid #eee;
-  padding: 8px 20px;
-  cursor: pointer;
-  outline: none;
-  box-shadow: 1px 1px 3px #eee;
-  border-radius: 25px;
-  transition: background .3s ease;
-  &:hover {
-    background-color: ${props => props.alt ? '#d97059' : '#8fc979'};  
-  }
-`
+
+// const StyledButton = styled.button`
+//   background-color: ${props => props.alt ? '#9c4a38' : '#568046'};
+//   color: #fff;
+//   font: inherit;
+//   border: 1px solid #eee;
+//   padding: 8px 20px;
+//   cursor: pointer;
+//   outline: none;
+//   box-shadow: 1px 1px 3px #eee;
+//   border-radius: 25px;
+//   transition: background .3s ease;
+//   &:hover {
+//     background-color: ${props => props.alt ? '#d97059' : '#8fc979'};  
+//   }
+// `
 
 class App extends Component {
    
@@ -105,8 +106,8 @@ class App extends Component {
               name={person.name}
               age={person.age}
               key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)}
-            />
+              changed={(event) => this.nameChangedHandler(event, person.id)}>
+              </Person>
         })
 
         // style.backgroundColor = '#9c4a38';
@@ -132,11 +133,11 @@ class App extends Component {
         <div className="App">
           <h1>Hi, I'm a simple React Application</h1>
           <p className={classes.join(' ')}>List of users down below</p>
-          <StyledButton
+          <button
             alt={this.state.showPersons ? 1 : 0}
             onClick={this.togglePersonsHandler}>
               Toggle names list
-          </StyledButton>
+          </button>
           {persons}
           <div>
             <input style={style2} type="text" value={this.state.inputNumber} onChange={this.numberChangedHandler} ></input>
