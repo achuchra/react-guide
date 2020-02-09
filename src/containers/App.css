@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+}
+
+.JustInput {
+  border-radius: 25px;
+  margin: 15px 0;
+  outline: none;
+  padding: 3px 15px;
+  border: 1px solid #eee;
+}

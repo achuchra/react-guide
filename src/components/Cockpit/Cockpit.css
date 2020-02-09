@@ -1,0 +1,35 @@
+
+.Button {
+  /* background-color: ${props => props.alt ? '#9c4a38' : '#568046'}; */
+  background-color: #568046;
+  color: #fff;
+  font: inherit;
+  border: 1px solid #eee;
+  padding: 8px 20px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 1px 1px 3px #eee;
+  border-radius: 25px;
+  transition: background .3s ease;
+}
+
+.Button:hover {
+  /* background-color: ${props => props.alt ? '#d97059' : '#8fc979'};   */
+  background-color: #8fc979;
+}
+
+.Button.Red {
+  background-color: #9c4a38;
+}
+
+.Button.Red:hover {
+  background-color: #d97059;
+}
+
+.RedLabel {
+  color: #9c4a38;
+}
+
+.BoldLabel {
+  font-weight: bold;
+}
