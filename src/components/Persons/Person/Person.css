@@ -1,26 +1,26 @@
 .Person {
-    width: 60%;
-    margin: 16px auto;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    padding: 16px;
-    text-align: center;
-    border-radius: 35px;
-    border-top-right-radius: 0;
-    position: relative;
+  width: 60%;
+  margin: 16px auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 16px;
+  text-align: center;
+  border-radius: 35px;
+  border-top-right-radius: 0;
+  position: relative;
 }
 
-@media(max-width: 757px){
-    .Person {
-        width: 100%;
-    }
+@media (max-width: 757px) {
+  .Person {
+    width: 100%;
+  }
 }
 
 .Person_delete {
-    position: absolute;
-    color: red;
-    top: 5px;
-    right: 10px;
-    font-weight: bold;
-    cursor: pointer;
+  position: absolute;
+  color: red;
+  top: 5px;
+  right: 10px;
+  font-weight: bold;
+  cursor: pointer;
 }

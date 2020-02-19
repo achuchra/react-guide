@@ -3,9 +3,14 @@ import classes from './App.css';
 
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 
 class App extends Component {
-   
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor call. You can define state here');
+  }
+
   state = { 
       persons: [
         {id:'asfa1', name: 'Ann', age: 15},
@@ -14,7 +19,27 @@ class App extends Component {
       ],
       otherState: 'Some other value',
       showPersons: false,
-      inputNumber: ''
+      inputNumber: '',
+      showCockpit: true,
+      changeCounter: 0
+  }
+
+  static getDerivedStateFromProps = (props, state) => {
+    console.log('[App.js] getDerivedStateFromProps');
+    return null;
+  }
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate(){
+    console.log('[App.js] componentDidUpdate');
+  }
+   
+  componentDidMount = () => {
+    console.log('[App.js] componentDidMount');
   }
 
   nameChangedHandler = (event, personId) => {
@@ -36,7 +61,15 @@ class App extends Component {
     persons[personIndex] = selectedPerson;
 
     // set the state using the created persons array
-    this.setState({persons: persons});
+    // this.setState({persons: persons});
+
+    // preffered way to setState if a new state depends on prevState since it might happen asynchronously
+    this.setState((prevState, props)=>{
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      }
+    })
   }
 
   togglePersonsHandler = () => {
@@ -56,6 +89,8 @@ class App extends Component {
   
   render () {
 
+    console.log('[App.js] rendering...');
+
     let persons = null;
 
     if(this.state.showPersons){
@@ -68,14 +103,18 @@ class App extends Component {
     }
 
     return (
-        <div className={classes.App}>
-          <Cockpit
+        <WithClass classes={classes.App}>
+          <button 
+            onClick={
+              () => this.setState({showCockpit: false})
+            }>`Remove cockpit</button>
+          { this.state.showCockpit ? <Cockpit
             showPersons={this.state.showPersons}
-            persons={this.state.persons}
+            personsLength={this.state.persons.length}
             clicked={this.togglePersonsHandler}>
-          </Cockpit>
+          </Cockpit> : null }
           {persons}
-        </div>
+        </WithClass>
     );
   }
 }

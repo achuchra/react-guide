@@ -1,16 +1,34 @@
-import React from 'react';
-import classes from './Person.css'
+import React, { Component } from 'react';
+import classes from './Person.css';
 
-const person = (props) => {
-    
-return (
-    <div className={classes.Person}>
-        <p>My name is {props.name} and I'm {props.age}</p>
-        <p>{props.children}</p>
-        <input type="text" onChange={props.changed} defaultValue={props.name}></input>
-        <span onClick={props.click} className={classes.Person_delete}>x</span>
-    </div>
-    )
-};
+import Aux from '../../../hoc/Aux';
+import withClassFn from '../../../hoc/withClassFn';
 
-export default person;
+class Person extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[Person.js] shouldComponentUpdate');
+    return true;
+  }
+
+  render() {
+    console.log('[Person.js] rendering...');
+    return (
+      <Aux>
+        <p>
+          My name is {this.props.name} and I'm {this.props.age}
+        </p>
+        <p>{this.props.children}</p>
+        <input
+          type="text"
+          onChange={this.props.changed}
+          defaultValue={this.props.name}
+        ></input>
+        <span onClick={this.props.click} className={classes.Person_delete}>
+          x
+        </span>
+      </Aux>
+    );
+  }
+}
+
+export default withClassFn(Person, classes.Person);
